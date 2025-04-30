@@ -6,4 +6,4 @@ langchain-community
 langchain-openai
 openai
 faiss-cpu
-pip install google-generativeai
+google-generativeai
