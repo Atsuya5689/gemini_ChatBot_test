@@ -1,0 +1,9 @@
+flask
+flask-cors
+dotenv
+langchain
+langchain-community
+langchain-openai
+openai
+faiss-cpu
+pip install google-generativeai

@@ -1,0 +1,368 @@
+/* =============================
+    全体スタイル（基本）
+============================= */
+body {
+  font-family: 'Noto Sans JP', 'Yu Gothic UI', 'Helvetica', 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #222;
+}
+
+/* ラッパーで左右2カラムに */
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* =============================
+    サイドバー
+============================= */
+.sidebar {
+  width: 240px;
+  background-color: #339966;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar li {
+  margin-bottom: 12px;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+/* ハンバーガーボタン（デフォルト非表示） */
+.sidebar-toggle {
+  display: none;
+  background-color: #339966;
+  color: white;
+  font-size: 18px;
+  padding: 12px 16px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* 薄暗く */
+  display: none; /* 初期状態では非表示 */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-box {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+}
+
+.loading-box img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+}
+
+
+
+
+/* =============================
+    メインコンテンツ
+============================= */
+.main {
+  flex: 1;
+  padding: 40px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: bold;
+  color: #339966;
+  margin-bottom: 10px;
+}
+
+.subtext {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+button {
+  background-color: #339966;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #339966;
+}
+
+.bubble {
+  margin-top: 30px;
+  padding: 20px;
+  border-left: 5px solid #339966;
+  background-color: #dddddd;
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 80%;
+}
+
+
+/* ✕ボタン（スマホ用） */
+.close-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  position: absolute;
+  top: 5px;
+  left: 80px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+/* ================================
+   📦 右側のお知らせ／FAQ パネル
+================================= */
+.info-panel {
+  background-color: #fff;
+  border-left: 4px solid #2e8b57; /* 緑のライン */
+  padding: 30px 20px;
+  width: 280px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.info-panel h2 {
+  font-size: 18px;
+  margin-top: 0;
+  color: #2e8b57;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+.info-panel ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 30px;
+}
+
+.info-panel li {
+  margin-bottom: 8px;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 150px;
+  height: 150px;
+  background-image: url('character.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* opacity: 0.5; */
+  z-index: 1;
+  pointer-events: none;
+}
+
+
+/* =============================
+    レスポンシブ対応（4段階）
+============================= */
+
+/* ① 1200px以下：小型ノートPC */
+@media screen and (max-width: 1200px) {
+  .title {
+    font-size: 36px;
+  }
+  input[type="text"] {
+    width: 280px;
+  }
+}
+
+/* ② 992px以下：タブレット横 */
+@media screen and (max-width: 992px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  input[type="text"] {
+    box-sizing: border-box;
+    width:80%;
+    margin-bottom: 10px;
+  }
+
+  .sidebar {
+    width: 100%;
+    text-align: center;
+  }
+
+  .main {
+    padding: 30px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .info-panel {
+    display: none;
+  }
+
+  body::after {
+    display: none;
+  }
+}
+
+/* ③ 768px以下：タブレット縦 */
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .subtext {
+    font-size: 15px;
+  }
+
+  input[type="text"] {
+    box-sizing: border-box;
+    width:100%;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  button {
+    width: 100%;
+    display: block;
+  }
+
+  .bubble {
+    font-size: 15px;
+    max-width: 100%;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 240px;
+    background-color: #339966;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    display: block; /* ← ここ忘れやすい */
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .sidebar-toggle {
+    display: block;
+    background-color: #339966;
+    color: white;
+    font-size: 18px;
+    padding: 12px 16px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+  }
+
+  .sidebar.active .close-btn {
+    display: block;
+  }
+
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .main {
+    padding: 20px;
+  }
+
+  
+  
+}
+
+/* ④ 480px以下：スマホ */
+@media screen and (max-width: 480px) {
+  .main {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .subtext {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  input[type="text"],
+  button {
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .bubble {
+    font-size: 14px;
+    padding: 16px;
+  }
+
+  .sidebar h2 {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIチャットサポート</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ハンバーガーボタン（スマホ用） -->
+  <button class="sidebar-toggle" onclick="toggleSidebar()">☰ メニュー</button>
+  <div class="wrapper">
+    
+    <div class="sidebar" id="sidebar">
+      <!-- sidebarの中、h2の前でもOK！ -->
+      <button class="close-btn" onclick="toggleSidebar()">✕</button>
+      <h2> メニュー</h2>
+      <ul>
+        <li><a href="https://www.broadleaf.co.jp/">株式会社ブロードリーフ webサイト</a></li>
+        <li><a href="https://support.broadleaf.co.jp/bl_support/">商品サポート</a></li>
+        <li><a href="https://www.broadleaf.co.jp/form/">お問い合わせ</a></li>
+        <li><a href="https://www2.broadleaf.co.jp/form/">資料請求</a></li>
+      </ul>
+    </div>
+    <div class="main" href="https://www.broadleaf.co.jp/">
+      <div class="logo">
+        <a href="https://www.broadleaf.co.jp/">
+          <img src="logo.png" >
+        </a>
+      </div>
+      <h1 class="title">ブロードリーフAIチャットサポート</h1>
+      <p class="subtext">AIが質問にお答えします！</p>
+      <div>
+        <input type="text" id="questionInput" placeholder="例：返品できますか？" />
+        <button onclick="sendQuestion()">送信</button>
+      </div>
+      <div id="responseArea" class="bubble"></div>
+    
+      <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+          }
+
+          async function sendQuestion() {
+            const question = document.getElementById('questionInput').value;
+            const responseArea = document.getElementById('responseArea');
+            const overlay = document.getElementById('loadingOverlay');
+
+            overlay.style.display = 'flex'; //  オーバーレイ表示！
+
+            try {
+              const res = await fetch('/ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question })
+              });
+
+              const data = await res.json();
+              responseArea.innerText = data.answer;
+            } catch (error) {
+              responseArea.innerText = 'エラーが発生しました。';
+              console.error(error);
+            } finally {
+              overlay.style.display = 'none'; //  回答完了後に非表示！
+            }
+          }
+
+      </script>
+    </div>
+    <!--  追加：右側の情報パネル -->
+    <div class="info-panel">
+      <h2>お知らせ</h2>
+      <ul>
+        <li>2025年3月 新機能のお知らせ</li>
+        <li>2025年2月 サービスメンテナンス</li>
+      </ul>
+
+      <h2>よくある質問</h2>
+        <details>
+          <summary>Q. 返品はできますか？</summary>
+          <p>A. はい、商品は配達後7日以内に返品可能です。ただし、未使用かつ未開封の状態である必要があります。返品に関する詳細は、サポートまでお問い合わせください。</p>
+        </details>
+        <details>
+          <summary>Q. ログインできません</summary>
+          <p>A. ログインできない場合は、まずパスワードを再設定してみてください。ログイン画面の「パスワードを忘れた方はこちら」から再設定できます。それでも問題が解決しない場合は、カスタマーサポートまでお問い合わせください。</p>
+        </details>
+        <details>
+          <summary>Q. 納品書はどこで見られますか？</summary>
+          <p>A. 納品書はマイページ内の「請求書履歴」からご確認いただけます。該当の月を選択して、納品書を閲覧してください。/p>
+        </details>
+    </div>
+
+  </div>
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-box">
+      <img src="thinking.gif" alt="Thinking..." />
+      <p>AIが考え中です...</p>
+    </div>
+  </div>
+  
+</body>
+</html>
